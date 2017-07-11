@@ -1,28 +1,27 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
-owner: Partners
+title: Installing and Configuring EDB Postgres Ark
+owner: EnterpriseDB Corp.
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This page describes how to install and configure EDB Postgres Ark.
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+##<a id='install'></a> Installing and Configuring EDB Postgres Ark
 
-1. Download the product file from Pivotal Network.
+1. After configuring the Ark host, log in to the PCF Ops Manager, and select the **EDB Postgres Ark** icon from the PCF Ops Manager Installation Dashboard.
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+	<%= image_tag("ops_manager.png") %>
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
-This adds the tile to your staging area.
+2. Navigate to the **Settings** tab.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+	<%= image_tag("ark_settings.png") %>
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
+Use fields on the **EDB Postgres Ark** dialog to provide properties for your EDB Ark console:
+  * Use the **EDB Postgres Ark Cloud Provider** field to specify if your instances reside on Openstack or Amazon AWS; specify **AWS** or **OPENSTACK**.
+  * Use the **EDB Postgres Ark Console URL** field to specify the address of the Ark server.
+  * Use the **Ark User Name** field to specify the name of the administrative Ark user that will create and manage resources on behalf of Cloud Foundry.
+  * Use the **Ark Password** field to specify the password associated with the **Ark User Name**.
+  * Use the **Network or VPC ID to Deploy Into** field to provide the identifier of the OpenStack network or AWS VPC in which resources will reside.
+  * Use the **IP Pool** field to specify the name of the IP pool that will be used when assigning IP addresses to instances.
+  * If your instances will reside on an OpenStack host, provide the name of the tenant in which your instances will be created in the **OpenStack Tenant** field.
+  * If your instances will reside on an AWS host, provide the name of the AWS role that will be associated with each instance in the **Amazon AWS Role Name** field.
 
-1. Click **Save**.
-
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
-
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
