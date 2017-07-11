@@ -1,15 +1,246 @@
 ---
-title: Using YOUR-PRODUCT-NAME
-owner: Partners
+title: Using EDB Postgres Ark
+owner: EnterpriseDB Corp.
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+This topic describes how to use EDB Postgres Ark.
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+##<a id='using'></a> Using EDB Postgres Ark
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. 
-Give procedures for how to perform the different functions offered by your product and provide screenshots where necessary.** 
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. 
-If you include a Troubleshooting section, follow the Symptom/Explanation format used in the 
-[Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+**Reviewing Available Plans**
+
+Use the `marketplace` command to review information about the EDB Postgres Ark tile:
+
+    cf marketplace -s edb-postgres-ark`
+
+For example:
+
+    $ cf marketplace -s edb-postgres-ark
+    Getting service plan information for service edb-postgres-ark as admin
+    OK
+    service plan 
+    description 
+    free or paid
+
+    PostgreSQL 9.6 64bit on CentOS / RHEL 7
+    This plan provisions a private EDB PostgreSQL 9.6 64bit on CentOS / RHEL 7 database cluster.
+    free
+
+    EDB Postgres Advanced Server 9.6 64bit on CentOS 6/7, RHEL 7
+    This plan provisions a private EDB EDB Postgres Advanced Server 9.6 64bit on CentOS 6/7, RHEL 7 database cluster.
+    free
+
+For more information about the marketplace command, visit http://cli.cloudfoundry.org/en-US/cf/marketplace.html
+
+
+**Creating a New Service**
+
+You can use the `create-service` command to create a new service instance that resides on Amazon AWS or OpenStack.  When calling the `create-service` command, the first value specified should always be `edb-postgres-ark`:
+
+    cf create-service 
+        service plan service_name –c '{
+            ["name":"value"],
+            ["name":"value"],…}'
+
+Where: 
+
+* `service` specifies `edb-postgres-ark`.
+* `plan` specifies the name of the Ark database engine.
+* `service_name` specifies the name of the new Ark instance.
+* The `-c` flag precedes optional JSON-formatted "name":"value" pairs.  The parameters supported include:
+
+Name                |   Value
+--------------------|----------------
+backupRetention     | integer
+backupWindow        | string
+continuousArchiving | boolean (specify false)
+encrypted           | boolean
+iops                | integer
+notificationEmail   | string
+numberOfNodes       | integer
+optimized           | boolean
+serverClass         | string
+storage             | integer
+vpcId               | string
+yumUpdate           | boolean
+
+Before invoking the `create-service` command, an Ark administrative user must use the Ark console to enable a database engine that will be referenced by the command.
+
+Please note: The EDB Postgres Ark tile only supports asynchronous service creation.  Cloud Foundry enforces a 2 min time limit on synchronous operations, which may not provide enough time for cluster creation in Ark.  You should not specify `"accepts_incomplete" : "false"` when invoking the `create-service` command; if you do not specify accepts_incomplete when creating a cluster, the value will default to `true`.
+
+For complete syntax and usage information for `create-service`, visit http://cli.cloudfoundry.org/en-US/cf/create-service.html
+
+The following example demonstrates creating a new service instance:
+
+    cf create-service \
+        "edb-postgres-ark" \
+        "PostgreSQL 9.6 64bit on CentOS / RHEL 7" \
+        ark-accounting-service \
+        -c '{ \
+            "storage" : "4", \
+            "instance-type" : "t2.small" }'
+
+The example uses a plan named `PostgreSQL 9.6 64bit on CentOS / RHEL 7` to create an instance named `ark-accounting-service`.  The command includes the following JSON-formatted parameter specifications:
+
+    "storage" : "4"
+    "instance-type" : "t2.small"
+
+
+**Cloning a Service**
+
+You can also create a new service instance by cloning an existing service instance.  When cloning an instance, invoke the `cf create-service` command, specifying the `clone` parameter and passing the identifier of the service instance to be cloned.  The following example clones an existing service to create a new service named `ark-accounting-service-clone`:
+
+    $ cf create-service \
+        "edb-postgres-ark" \
+        "PostgreSQL 9.6 64bit on CentOS / RHEL 7" \
+        ark-accounting-service-clone \
+        -c '{ \
+            "clone" : "1ace2a0c-cea1-4487-a144-b5efb82d1765" }'
+
+The example uses a plan named `PostgreSQL 9.6 64bit on CentOS / RHEL 7` to create an instance named `ark-accounting-service-clone`.  The command includes the clone parameter specification, and includes the identifier of the service that is being cloned:
+
+    "clone" : "1ace2a0c-cea1-4487-a144-b5efb82d1765"
+
+You can use the `cf service command` to retrieve the service instance identifier of the instance you wish to clone.  For example:
+
+    $ cf service ark-accounting-service
+    Service instance: ark-accounting-service
+    Service: edb-postgres-ark
+    ...
+    Last Operation
+    Status: create succeeded
+    Message: Ark: 1ace2a0c-cea1-4487-a144-b5efb82d1765
+    Started: 2017-06-06T22:18:47Z
+    Updated: 2017-06-06T22:18:48Z
+    For information about using the service command, visit http://cli.cloudfoundry.org/en-US/cf/service.html
+
+
+**Restoring a Service from Backup**
+
+You can create a new service instance by restoring a backup of another instance; when invoking the `create-service` command, include the `restore` parameter and pass the identifier of the backup to be restored.  For example:
+
+    $ cf create-service \
+        "edb-postgres-ark" \
+        "PostgreSQL 9.6 64bit on CentOS / RHEL 7" \
+        ark-accounting-service-restored \
+        -c '{ \
+          "accepts_incomplete" : "true", \
+          "restore" : " 7fd0f5b1-0d0e-4862-bde0-9a6f55f24431" }'
+
+To retrieve the identifier of the backup you must to log into the Ark console, and copy the identifier from **ID** column of the **Backups** tab:
+
+	<%= image_tag("backups.png") %>
+
+
+**Updating a Service**
+
+You can use the `update-service` command to update a single setting on a running service instance.  The syntax is:
+
+    cf update-service 
+        service_instance_name –c'{
+            "name":"value" }'
+
+Where: 
+
+* `service_instance_name` specifies the name of the Ark instance.
+* The -c flag precedes the JSON-formatted "name":"value" pair that you wish to modify.  
+
+For example, the following command sets the value of the `monitoringLB` parameter on the `ark-accounting-service` cluster to `false`:
+
+    $ cf update-service \
+        ark-accounting-service -c '{ \
+            "monitoringLB" : "false" }'
+
+Each call to `cf update-service` may specify a change to only one setting, except when performing a machine scaling operation.  When performing a machine scaling operation, you are required to pass the `serverClass`, `ipPool`, and `vpcId` parameter values; you can optionally perform a `yumUpdate` when machine scaling.
+
+You can use update-service to modify the following settings:
+* autoScale
+* backupWindow
+* backupRetention
+* connectionThreshold
+* continuousArchiving
+* dataThreshold
+* monitoringLB
+* notificationEmail
+* numberOfNodes
+* owner
+* primaryFailoverToReplica
+* removeNode
+* serverClass
+* storage
+* upgrade
+
+For detailed information about the `update-service` command, visit http://cli.cloudfoundry.org/en-US/cf/update-service.html
+
+
+**Binding a Service**
+
+You can use the `bind-service` command to bind a service instance to an application.  In the EDB Postgres Ark tile, this means that a new role and credentials are created in the database and used by the application.  The syntax is:
+
+    cf bind-service 
+        application_name service_instance_name –c '{
+            ["name":"value"],
+            ["name":"value"],…}'
+
+Where: 
+
+* `application_name` specifies the name of the application you are binding to the Ark instance.
+* `service_instance_name` specifies the name of the Ark instance.
+* The `-c` flag precedes optional JSON-formatted "name":"value" pairs.
+
+For example, the following command binds a service instance named `ark-accounting-service` to an application named `ark-accounting-app`:
+
+    $ cf bind-service ark-accounting-app ark-accounting-service
+    Binding service ark-accounting-service to app ark-accounting-app in org edb-postgres-ark-broker-org / space edb-postgres-ark-broker-space as admin...
+    OK
+
+For more details about the `bind-service` command, visit http://cli.cloudfoundry.org/en-US/cf/bind-service.html
+
+
+**Unbinding a Service**
+
+You can use the `unbind-service` command to unbind a service instance from an application.  In the EDB Postgres Ark tile, this means that the role and credentials generated in the database are removed, and will no longer work for connections.  The syntax is:
+
+    cf unbind-service 
+        application_name service_name
+
+Where: 
+
+* `application_name` specifies the name of the application you are binding to the Ark instance.
+* `service_name` specifies the name of the Ark instance.
+
+For example, the following command unbinds a service instance named `ark-accounting-service` from an application named `ark-accounting-app`:
+
+    $ cf unbind-service ark-accounting-app ark-accounting-service
+    Unbinding app ark-accounting-app from service ark-accounting-service in org edb-postgres-ark-broker / space edb-postgres-ark-broker-space as admin...
+    OK
+
+For detailed information about the `unbind-service` command, visit: http://cli.cloudfoundry.org/en-US/cf/unbind-service.html
+
+
+**Deleting a Service**
+
+You can use the delete-service command to completely delete a service instance.  When you delete a service, the associated cluster running in Ark is completely removed, and the database cluster is deleted.  Any cluster backups will remain and can be restored in the future.  The syntax is:
+
+    cf delete-service service_name
+
+Where: 
+    
+* `service_name` specifies the name of the Ark instance.
+
+Please note that you must remove application bindings before deleting a service.  We recommend connecting to the Ark console that manages your instance and taking a backup before deleting a service.
+
+The following example deletes a service named `ark-accounting-service`:
+
+    $ cf delete-service ark-accounting-service
+    Really delete the service ark-accounting-service?> yes
+    Deleting service ark-accounting-service in org edb-postgres-ark-broker-org / space edb-postgres-ark-broker-space as admin...
+    OK
+    Delete in progress. Use 'cf services' or 'cf service ark-accounting-service' to check operation status.
+
+For more information about the `delete-service` command, visit: http://cli.cloudfoundry.org/en-US/cf/delete-service.html
+
+
+
+

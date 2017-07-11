@@ -1,114 +1,87 @@
+
 ---
-title: YOUR-PRODUCT-NAME (Beta)
-owner: Partners
+title: EDB Postgres Ark
+owner: EnterpriseDB Corp.
 ---
 
-<p class="note warning">
-<strong>WARNING! </strong>
-The PRODUCT-NAME for PCF tile is currently in beta and is intended for evaluation and test purposes only. 
-Do not use this product in a PCF production environment.
-</p>
+This documentation describes the installation and usage of the EDB Postgres Ark tile for Pivotal Cloud Foundry (PCF).  The EDB Postgres Ark tile integrates with EDB Postgres Ark (Ark) on either an OpenStack or Amazon AWS host.  
 
-**This topic begins with a brief description of what the product tile (e.g. Apigee Edge Service Broker for PCF) does, 
-whereas the Overview section below describes what the service itself (e.g. Apigee Edge) does. See below for an example.**
-
-This documentation describes the Apigee Edge Service Broker for Pivotal Cloud Foundry (PCF). The Apigee Edge Service 
-Broker for PCF enables developers to manage APIs for their PCF apps through the Apigee Edge management console.
-
-**Note**: This description will appear under **OVERVIEW** in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io).
+	<%= image_tag("tile.png") %>
 
 ## <a id='overview'></a>Overview
 
-**The overview describes the service that your product offers to PCF developers. 
-Make sure to overview the features of the integration.
-Don't focus only on the overview of your product that is being integrated.
-See below for an example.**
-
-The Apigee Edge Service Broker for PCF registers a service broker with PCF and exposes its service plans on the 
-Marketplace. Developers can then create service plan instances using Apps Manager or the Cloud Foundry Command 
-Line Interface (cf CLI) and bind them to their apps.
-
-Creating an Apigee Edge for PCF service instance and binding it to an app creates an Apigee Edge API proxy that 
-handles requests for the app. This lets developers use the Apigee Edge management console to manage API request 
-handling between clients and the app.
-
-**Note**: This overview will appear under **OVERVIEW**, combined with the description above in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io).
+EDB Postgres Ark automatically provisions PostgreSQL or EDB Postgres Advanced Server databases in single instances, high-availability clusters, or application development sandboxes.  
 
 ## <a id='features'></a>Key Features
 
-**Note**: This feature list will appear under **FEATURES** in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io). 
-Make sure you list the key features of the tile (the integration). 
-We cannot accept a list of the key features of your product that we are integrating.
-
-YOUR-PRODUCT-NAME includes the following key features:
-
-* Feature one.
-* Feature two.
-* Feature three.
-
-
+In minutes, EDB Ark configures a cluster of database machines with: 
+* Streaming replication
+* Connection pooling
+* Load balancing
+* Automatic failover (transaction or recovery time preferred)
+* Secure data encryption
+* Rotating user-scheduled backups
+* Point-in-time recovery
+* Elastic storage
+* Elastic scale out
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about PRODUCT-NAME.
+The following table provides version and version-support information about EDB Postgres Ark.
 
 <table class="nice">
     <th>Element</th>
     <th>Details</th>
     <tr>
         <td>Tile version</td>
-        <td>vYOUR-VERSION-NUMBER</td>
+        <td>v2.0</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>YOUR-RELEASE-DATE (Ex: July 1, 2017)</td>
+        <td>July 28, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
-        <td>vYOUR-SOFTWARE-COMPONENT-VERSION-NUMBER</td>
+        <td>v2.0</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>vYOUR-COMPATIBLE-OPS-MAN-VERSION (Ex. v1.8.x, v1.9.x, v1.10.x)</td>
+        <td>v1.11.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>vYOUR-COMPATIBLE-ELASTIC-RUNTIME-VERSION (Ex. v1.8.x, v1.9.x, v1.10.x)</td>
+        <td>v1.11.x</td>
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>AWS?, Azure?, GCP?, OpenStack?, and vSphere?</td>
+        <td>The EDB Postgres Ark tile supports provisioning of RHEL 7 and CentOS 6.x and 7.x instances on OpenStack and Amazon AWS.</td>
     </tr>
     <tr>
         <td>IPsec support?</td>
-        <td>[Yes or No]</td>
+        <td>No</td>
     </tr>
 </table>
 
 ## <a id="reqs"></a>Requirements
 
-**Provide any general or specific requirements, prerequisites, or dependencies here. 
-A general requirement might be something like, "An AppDynamics account." 
-A specific requirement might be something like, "Packaging Dependencies for Offline Buildpacks."**
+The EDB Postgres Ark tile has the following pre-requisite:
 
-YOUR-PRODUCT-NAME has the following requirements:
-
-+ PREREQUISITE-1
-
-+ PREREQUISITE-2
+Before deploying an EDB Postgres Ark tile, you must install and configure the EDB Postgres Ark server on an Amazon AWS or OpenStack host.  When configuring Ark, you must enable at least one database engine; ideally, you should enable all of the engines that you plan to use with the tile before tile deployment.  For detailed information about deploying an Ark console on an AWS or OpenStack host, please see the EDB Ark Administrator's Guide, available from the EnterpriseDB website at: https://www.enterprisedb.com/resources/product-documentation
 
 ## <a id="limitations"></a>Limitations
 
-**List any known limitations.**
+EDB Postgres Ark has the following known limitations:
+
+* Prior to launching a tile, you must connect to the Ark console as an Administrative user and enable all of the database engines that will be used by the tile.  If you enable additional engines after launching the tile, you will be required to reconfigure and restart the tile.
+
+* When configuring an instance in the Pivotal Apps Manager, you will have the option to bind the instance to an application.  You should not provide a value in the **Bind to App** field; if the graphical interface attempts to bind before the back-end cluster is running, the binding will fail.  Instead, select **Show Advanced Options** and specify your service instance preferences.  After the service instance has been created, you can use the **Pivotal App Bindings** dialog or **bind-service** command to bind an application to your instance.
+
+* When calling `cf update-service`, the optional `–p NEW_PLAN` functionality is not supported by the EDB Postgres Ark tile.
 
 ## <a id="feedback"></a>Feedback
 
-If you have a feature request, questions, or information about a bug, please email
-[Pivotal Cloud Foundry Feedback](mailto:pivotal-cf-feedback@pivotal.io) list or send an email to YOUR-SUPPORT-EMAIL.
+If you have a feature request, questions, or information about a bug, please send an email to support@enterprisedb.com.
 
 ## <a id='license'></a>License
 
-**List any license information here.**
+The EDB Postgres Ark tile does not require a license, but licenses may be required for software managed by EDB Postgres Ark.  Please consult each software vendor for their licensing requirements.
