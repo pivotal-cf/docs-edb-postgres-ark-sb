@@ -6,7 +6,7 @@ owner: EnterpriseDB Corp.
 
 This documentation describes the installation and usage of the EDB Postgres Ark tile for Pivotal Cloud Foundry (PCF).  The EDB Postgres Ark tile integrates with EDB Postgres Ark (Ark) on either an OpenStack or Amazon AWS host.  
 
-	<%= image_tag("tile.png") %>
+  <%= image_tag("tile.png") %>
 
 ## <a id='overview'></a>Overview
 
@@ -14,7 +14,8 @@ EDB Postgres Ark automatically provisions PostgreSQL or EDB Postgres Advanced Se
 
 ## <a id='features'></a>Key Features
 
-In minutes, EDB Ark configures a cluster of database machines with: 
+In minutes, EDB Ark configures a cluster of database machines with:
+
 * Streaming replication
 * Connection pooling
 * Load balancing
@@ -34,7 +35,7 @@ The following table provides version and version-support information about EDB P
     <th>Details</th>
     <tr>
         <td>Tile version</td>
-        <td>v2.0</td>
+        <td>v1.0.x</td>
     </tr>
     <tr>
         <td>Release date</td>
@@ -46,11 +47,15 @@ The following table provides version and version-support information about EDB P
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.11.x</td>
+        <td>v1.9.1</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.11.x</td>
+        <td>v1.9.1</td>
+    </tr>
+    <tr>
+        <td>EDB Postgres Ark version</td>
+        <td>The EDB Postgres Ark tile supports provisioning of instances managed by version 2.2 of the Ark console.</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -66,7 +71,9 @@ The following table provides version and version-support information about EDB P
 
 The EDB Postgres Ark tile has the following pre-requisite:
 
-Before deploying an EDB Postgres Ark tile, you must install and configure the EDB Postgres Ark server on an Amazon AWS or OpenStack host.  When configuring Ark, you must enable at least one database engine; ideally, you should enable all of the engines that you plan to use with the tile before tile deployment.  For detailed information about deploying an Ark console on an AWS or OpenStack host, please see the EDB Ark Administrator's Guide, available from the EnterpriseDB website at: https://www.enterprisedb.com/resources/product-documentation
+Before deploying an EDB Postgres Ark tile, you must install and configure the EDB Postgres Ark server on an Amazon AWS or OpenStack host.  When configuring Ark, you must enable at least one database engine; ideally, you should enable all of the engines that you plan to use with the tile before tile deployment.
+
+For detailed information about deploying an Ark console on an AWS or OpenStack host, see the EDB Ark Administrator's Guide, available from the EnterpriseDB website at: https://www.enterprisedb.com/resources/product-documentation
 
 ## <a id="limitations"></a>Limitations
 

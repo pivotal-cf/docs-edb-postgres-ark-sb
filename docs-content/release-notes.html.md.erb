@@ -1,27 +1,24 @@
 ---
-title: Release Notes for YOUR-PRODUCT-NAME
-owner: Partners
+title: Release Notes for EDB Postgres Ark Service Broker
+owner: EnterpriseDB Corp
 ---
 
-**This topic should include the Release Notes for your product. For examples, see the 
-[GCP Service Broker Release Notes](http://docs.pivotal.io/gcp-sb/release-notes.html) or the 
-[ISS Knowtify Search Analytics Release Notes](http://docs.pivotal.io/knowtify/release.html).
-When you release a new version, add new release notes to this file, keeping the older notes below.**
+EDB Postgres Ark Release Notes
 
-These are release notes for YOUR-PRODUCT-NAME.
+##<a id="ver"></a> v1.0.0
 
-##<a id="ver"></a> vCURRENT-VERSION-NUMBER (Ex. v1.0.1)
+**Release Date:** July 28, 2017
 
-**Release Date:** RELEASE-DATE (Ex. August 1, 2016)
+The EDB Postgres Ark Service Broker provides comprehensive integration with EDB Postgres Ark.  EDB Postgres Ark simplifies the provisioning and binding of highly available database clusters on demand.
 
 Features included in this release:
 
-* Feature one.
-* Feature two.
-* Feature three.
+* Automated on-demand provisioning of any-scale database clusters.
+* Health monitoring, backup, automatic recovery, and failover.
+* Integrated database cloning.
 
 Known issues in this release:
 
-* Issue one.
-* Issue two.
-* Issue three.
+* Before launching a tile, you must connect to the Ark console as an Administrative user and enable any database engines that will be used by the tile.
+* When configuring an instance in the Pivotal Apps Manager, you should not provide a value in the **Bind to App** field; if the graphical interface attempts to bind before the back-end cluster is running, the binding will fail.
+* When calling `cf update-service`, the optional `–p NEW_PLAN` functionality is not supported.
