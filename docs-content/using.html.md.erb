@@ -10,7 +10,7 @@ This topic describes how to use EDB Postgres Ark for PCF.
 
 Use the `marketplace` command to review information about the EDB Postgres Ark tile:
 
-    cf marketplace -s edb-postgres-ark`
+    cf marketplace -s edb-postgres-ark
 
 For example:
 
@@ -75,8 +75,8 @@ The following example demonstrates creating a new service instance:
         "edb-postgres-ark" \
         "PostgreSQL 9.6 64bit on CentOS / RHEL 7" \
         ark-accounting-service \
-        -c '{ \
-            "storage" : "4", \
+        -c '{ 
+            "storage" : "4", 
             "instance-type" : "t2.small" }'
 
 The example uses a plan named `PostgreSQL 9.6 64bit on CentOS / RHEL 7` to create an instance named `ark-accounting-service`.  The command includes the following JSON-formatted parameter specifications:
@@ -93,7 +93,7 @@ You can also create a new service instance by cloning an existing service instan
         "edb-postgres-ark" \
         "PostgreSQL 9.6 64bit on CentOS / RHEL 7" \
         ark-accounting-service-clone \
-        -c '{ \
+        -c '{ 
             "clone" : "1ace2a0c-cea1-4487-a144-b5efb82d1765" }'
 
 The example uses a plan named `PostgreSQL 9.6 64bit on CentOS / RHEL 7` to create an instance named `ark-accounting-service-clone`.  The command includes the clone parameter specification, and includes the identifier of the service that is being cloned:
@@ -122,8 +122,8 @@ You can create a new service instance by restoring a backup of another instance;
         "edb-postgres-ark" \
         "PostgreSQL 9.6 64bit on CentOS / RHEL 7" \
         ark-accounting-service-restored \
-        -c '{ \
-          "accepts_incomplete" : "true", \
+        -c '{ 
+          "accepts_incomplete" : "true", 
           "restore" : " 7fd0f5b1-0d0e-4862-bde0-9a6f55f24431" }'
 
 To retrieve the identifier of the backup you must to log into the Ark console, and copy the identifier from **ID** column of the **Backups** tab:
@@ -131,7 +131,7 @@ To retrieve the identifier of the backup you must to log into the Ark console, a
 	<%= image_tag("backups.png") %>
 
 
-<a id="updating"></a>## Updating a Service
+## <a id="updating"></a> Updating a Service
 
 You can use the `update-service` command to update a single setting on a running service instance.  The syntax is:
 
@@ -147,7 +147,7 @@ Where:
 For example, the following command sets the value of the `monitoringLB` parameter on the `ark-accounting-service` cluster to `false`:
 
     $ cf update-service \
-        ark-accounting-service -c '{ \
+        ark-accounting-service -c '{ 
             "monitoringLB" : "false" }'
 
 Each call to `cf update-service` may specify a change to only one setting, except when performing a machine scaling operation.  When performing a machine scaling operation, you are required to pass the `serverClass`, `ipPool`, and `vpcId` parameter values; you can optionally perform a `yumUpdate` when machine scaling.
@@ -172,7 +172,7 @@ You can use update-service to modify the following settings:
 For detailed information about the `update-service` command, visit http://cli.cloudfoundry.org/en-US/cf/update-service.html
 
 
-## <a id="binding"></a>Binding a Service
+## <a id="binding"></a> Binding a Service
 
 You can use the `bind-service` command to bind a service instance to an application.  In the EDB Postgres Ark tile, this means that a new role and credentials are created in the database and used by the application.  The syntax is:
 
@@ -238,7 +238,6 @@ The following example deletes a service named `ark-accounting-service`:
     Delete in progress. Use 'cf services' or 'cf service ark-accounting-service' to check operation status.
 
 For more information about the `delete-service` command, visit: http://cli.cloudfoundry.org/en-US/cf/delete-service.html
-
 
 
 
