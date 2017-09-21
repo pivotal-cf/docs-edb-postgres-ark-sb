@@ -34,11 +34,11 @@ The following table provides version and version-support information about EDB P
     <th>Details</th>
     <tr>
         <td>Tile version</td>
-        <td>v1.0.x</td>
+        <td>v1.0.1</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>July 28, 2017</td>
+        <td>September 22, 2017</td>
     </tr>
     <tr>
         <td>Software component version</td>
@@ -46,19 +46,19 @@ The following table provides version and version-support information about EDB P
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>v1.9.1</td>
+        <td>v1.12.x, v1.11.x, v1.10.x, v1.9.x</td>
     </tr>
     <tr>
         <td>Compatible Elastic Runtime version(s)</td>
-        <td>v1.9.1</td>
+        <td>v1.12.x, v1.11.x, v1.10.x, v1.9.x</td>
     </tr>
     <tr>
         <td>EDB Postgres Ark version</td>
-        <td>The EDB Postgres Ark tile supports provisioning of instances managed by version 2.2 of the Ark console.</td>
+        <td>EDB Postgres Ark Service Broker for PCF supports provisioning of instances managed by version 2.2 of the Ark console.</td>
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>The EDB Postgres Ark tile supports provisioning of RHEL 7 and CentOS 6.x and 7.x instances on OpenStack and Amazon AWS.</td>
+        <td>EDB Postgres Ark Service Broker for PCF supports provisioning of RHEL 7 and CentOS 6.x and 7.x instances on OpenStack and Amazon AWS.</td>
     </tr>
     <tr>
         <td>IPsec support?</td>
@@ -68,9 +68,9 @@ The following table provides version and version-support information about EDB P
 
 ## <a id="reqs"></a>Requirements
 
-The EDB Postgres Ark tile has the following pre-requisite:
+EDB Postgres Ark Service Broker for PCF has the following pre-requisite:
 
-Before deploying an EDB Postgres Ark tile, you must install and configure the EDB Postgres Ark server on an Amazon AWS or OpenStack host.  When configuring Ark, you must enable at least one database engine; ideally, you should enable all of the engines that you plan to use with the tile before tile deployment.  
+Before deploying EDB Postgres Ark Service Broker for PCF, you must install and configure the EDB Postgres Ark server on an Amazon AWS or OpenStack host.  When configuring Ark, you must enable at least one database engine; ideally, you should enable all of the engines that you plan to use with the tile before tile deployment.
 
 For detailed information about deploying an Ark console on an AWS or OpenStack host, see the [EDB Ark Administrative User Guide](https://www.enterprisedb.com/resources/edb-product-documentation/edb-ark-22-administrative-user-guide).
 
@@ -82,7 +82,7 @@ EDB Postgres Ark has the following known limitations:
 
 * When configuring an instance in the Pivotal Apps Manager, you will have the option to bind the instance to an application.  You should not provide a value in the **Bind to App** field; if the graphical interface attempts to bind before the back-end cluster is running, the binding will fail.  Instead, select **Show Advanced Options** and specify your service instance preferences.  After the service instance has been created, you can use the **Pivotal App Bindings** dialog or **bind-service** command to bind an application to your instance.
 
-* When calling `cf update-service`, the optional `–p NEW_PLAN` functionality is not supported by the EDB Postgres Ark tile.
+* When calling `cf update-service`, the optional `–p NEW_PLAN` functionality is not supported by EDB Postgres Ark Service Broker for PCF.
 
 ## <a id="feedback"></a>Feedback
 
@@ -90,4 +90,4 @@ If you have a feature request, questions, or information about a bug, please sen
 
 ## <a id='license'></a>License
 
-The EDB Postgres Ark tile does not require a license, but licenses may be required for software managed by EDB Postgres Ark.  Please consult each software vendor for their licensing requirements.
+EDB Postgres Ark Service Broker for PCF does not require a license, but licenses may be required for software managed by EDB Postgres Ark.  Please consult each software vendor for their licensing requirements.
