@@ -13,22 +13,19 @@ This page describes how to install and configure EDB Postgres Ark.
 
 2. Navigate to the **Settings** tab.
 
-	<%= image_tag("ark_settings.png") %>
-
-  Use fields on the **EDB Postgres Ark** dialog to provide properties for your EDB Ark console:
-
-  * Use the **EDB Postgres Ark Cloud Provider** field to specify if your instances reside on Openstack or Amazon AWS; specify **AWS** or **OPENSTACK**.
-  * Use the **EDB Postgres Ark Console URL** field to specify the address of the Ark server.
-  * Use the **Ark User Name** field to specify the name of the administrative Ark user that will create and manage resources on behalf of Cloud Foundry.
-  * Use the **Ark Password** field to specify the password associated with the **Ark User Name**.
-  * Use the **Network or VPC ID to Deploy Into** field to provide the identifier of the OpenStack network or AWS VPC in which resources will reside.
-  * Use the **IP Pool** field to specify the name of the IP pool that will be used when assigning IP addresses to instances.
-  * If your instances will reside on an OpenStack host, provide the name of the tenant in which your instances will be created in the **OpenStack Tenant** field.
-  * If your instances will reside on an AWS host, provide the name of the AWS role that will be associated with each instance in the **Amazon AWS Role Name** field.
+	<%= image_tag("ark_settings.png") %> 
+  Configure the fields on the **EDB Postgres Ark** dialog as follows:<br><br>
+  * **EDB Postgres Ark Cloud Provider**: Specify if your instances reside on Openstack or Amazon AWS; specify **AWS** or **OPENSTACK**.<br>
+  * **EDB Postgres Ark Console URL**: Enter the address of the Ark server.<br>
+  * **Ark User Name**: Enter the name of the administrative Ark user that will create and manage resources on behalf of Cloud Foundry.<br>
+  * **Ark Password**: Enter the password associated with the **Ark User Name**.<br>
+  * **Network or VPC ID to Deploy Into**: Enter the identifier of the OpenStack network or AWS VPC in which resources will reside.<br>
+  * **IP Pool**: Enter the name of the IP pool that will be used when assigning IP addresses to instances.<br>
+  * **OpenStack Tenant**: If your instances will reside on an OpenStack host, provide the name of the tenant in which your instances will be created.<br>
+  * **Amazon AWS Role Name**: If your instances will reside on an AWS host, provide the name of the AWS role that will be associated with each instance.
 
 3. Navigate to the **Service Access** dialog.
 
 	<%= image_tag("service_access.png") %>
-
-  Use fields on the **Service Access** dialog to enable access to service plans:
-  * Check the box next to **Enable global access to plans of service** field to allow access to edb_postgres_ark service plans.
+  Use fields on the **Service Access** dialog to enable access to service plans:<br><br>
+  * Check the box next to **Enable global access to plans of service** field to allow access to **edb\_postgres\_ark** service plans.

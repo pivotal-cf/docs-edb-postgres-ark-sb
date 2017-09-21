@@ -65,7 +65,7 @@ yumUpdate           | boolean
 
 Before invoking the `create-service` command, an Ark administrative user must use the Ark console to enable a database engine that will be referenced by the command.
 
-Please note: The EDB Postgres Ark tile only supports asynchronous service creation.  Cloud Foundry enforces a 2 min time limit on synchronous operations, which may not provide enough time for cluster creation in Ark.  You should not specify `"accepts_incomplete" : "false"` when invoking the `create-service` command; if you do not specify accepts_incomplete when creating a cluster, the value will default to `true`.
+<p class="note"><strong>Note</strong>: The EDB Postgres Ark tile only supports asynchronous service creation.  Cloud Foundry enforces a 2 min time limit on synchronous operations, which may not provide enough time for cluster creation in Ark.  You should not specify `"accepts_incomplete" : "false"` when invoking the `create-service` command; if you do not specify accepts_incomplete when creating a cluster, the value will default to `true`.
 
 For complete syntax and usage information for `create-service`, visit http://cli.cloudfoundry.org/en-US/cf/create-service.html
 
@@ -227,7 +227,7 @@ Where:
     
 * `service_name` specifies the name of the Ark instance.
 
-Please note that you must remove application bindings before deleting a service.  We recommend connecting to the Ark console that manages your instance and taking a backup before deleting a service.
+<p class="note"><strong>Note</strong>: You must remove application bindings before deleting a service.  We recommend connecting to the Ark console that manages your instance and taking a backup before deleting a service.
 
 The following example deletes a service named `ark-accounting-service`:
 
