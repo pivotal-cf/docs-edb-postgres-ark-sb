@@ -3,7 +3,13 @@ title: EDB Postgres Ark Service Broker for PCF
 owner: EnterpriseDB Corp.
 ---
 
+<p class="note warning"><strong> WARNING:</strong>
+This tile requires a Trusty stemcell.
+The end of life date for Ubuntu Trusty is April 2019.
+If a security vulnerability is found on this stemcell after April, it will not be fixed.</p>
+
 This documentation describes the installation and usage of EDB Postgres Ark Service Broker for Pivotal Cloud Foundry (PCF). EDB Postgres Ark for PCF integrates with EDB Postgres Ark (Ark) on either an OpenStack or Amazon AWS host.  
+
 
   <%= image_tag("tile.png") %>
 
@@ -61,6 +67,10 @@ The following table provides version and version-support information about EDB P
         <td>EDB Postgres Ark Service Broker for PCF supports provisioning of instances managed by version 2.2 of the Ark console.</td>
     </tr>
     <tr>
+       <td>BOSH stemcell version</td>
+       <td>Ubuntu Trusty</td>
+    </tr>
+    <tr>
         <td>IaaS support</td>
         <td>EDB Postgres Ark Service Broker for PCF supports provisioning of RHEL 7 and CentOS 6.x and 7.x instances on OpenStack and Amazon AWS.</td>
     </tr>
@@ -69,7 +79,6 @@ The following table provides version and version-support information about EDB P
         <td>No</td>
     </tr>
 </table>
-\* As of PCF v2.0, <em>Elastic Runtime</em> is renamed <em>Pivotal Application Service (PAS)</em>. If your tile supports PCF 2.0, it will use PAS, not Elastic Runtime.
 
 ## <a id="reqs"></a>Requirements
 
